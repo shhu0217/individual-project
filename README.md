@@ -65,4 +65,4 @@
 ```javascript
 let xtime = TIME_SCALE * frameCount + X_TIME_UNIQUE;
 let xNoise = noise(xtime, XSEED);
-let offsetX = map(xNoise, 0, 1, -80, 80);```
+let offsetX = map(xNoise, 0, 1, -80, 80);
