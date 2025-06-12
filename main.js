@@ -20,9 +20,8 @@ function setup() {
 function draw() {
   // Gradient background
   let amt = map(sin(frameCount * 0.01), -1, 1, 0, 1);
-  let bg = lerpColor(c1, c2, amt);
+  let bg = lerpColor(c1, c2, amt);//https://p5js.org/reference/p5/lerpColor/
   background(bg);
-
   showAllRings();
 }
 
@@ -46,7 +45,8 @@ function generateRandomRings() {
     let overlapping = false;
     // Check if it overlaps with the generated circle
     for (let other of colorfulRings) {
-      let d = dist(x, y, other.xpos, other.ypos);
+      let d = dist(x, y, other.xpos, other.ypos);//Reference:https://p5js.org/reference/p5/dist/ This function generates non-overlapping rings by randomly placing them and checking their distance from existing ones. 
+
       if (d < size * 0.25 + other.size * 0.25) {
         overlapping = true;
         break;

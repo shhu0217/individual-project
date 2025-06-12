@@ -6,6 +6,9 @@ class ColorfulRing {
 
     // Randomly shuffle the order of the circle types
     this.typeOrder = shuffle([1, 2, 3]);
+    //Reference: https://p5js.org/reference/p5/shuffle/  
+    // This code uses shuffle() from p5.js to randomize the order of element types and color patterns. 
+
     // Color scheme
     this.colorPatterns = shuffle([
       " #1d1f73",
@@ -16,7 +19,7 @@ class ColorfulRing {
       " #de76be",
       " #e78e43",
       " #e1c162",
-      " #3e0707",
+      //" #3e0707",
     ]);
 
     this.NOISEVALUE = 0; // Noise value
@@ -103,9 +106,6 @@ class ColorfulRing {
     circle(0, 0, s);
 
     // Draw spots from the inside out in circles
-    noStroke();
-    fill(this.colorPatterns[1]);
-
     let r = s / 2;
     let sapcing = s * 0.04; // The interval between each circle
     if (sapcing <= 0) return;
@@ -117,8 +117,13 @@ class ColorfulRing {
     let offsetDt = s * nn;
 
     // Calculate the position of each spot and plot it
-    for (let i = 0; i < circleNum - 1; i++) {
+ for (let i = 0; i < circleNum - 1; i++) {
       offset += offsetDt;
+      let alpha = map(i, 0, circleNum - 1, 255, 10);
+      let c = color(this.colorPatterns[1]);
+      c.setAlpha(alpha);
+      noStroke();
+      fill(c);
       for (let j = 0; j < spotNum; j++) {
         let angle = j * spotDt + offset;
         let raduis = i * sapcing;
@@ -135,6 +140,7 @@ class ColorfulRing {
     // Draw the background color
     stroke(this.colorPatterns[2]);
     strokeWeight(lineWeight);
+
     fill(this.colorPatterns[1]);
     circle(0, 0, s);
 
@@ -147,6 +153,7 @@ class ColorfulRing {
     let nn2 = lerp(0.4, 0.6, this.NOISEVALUE);
     let innerRadius = s * nn1; // Inner radius
     let outterRadius = s * nn2; // Outer radius
+    let of = this.COLOR_NOISEVALUE * TWO_PI;
 
     for (let i = 0; i < lineNum; i++) {
       let angle = i * lineDt;
@@ -161,7 +168,10 @@ class ColorfulRing {
     }
 
     // Draw line segments inside a circle
-    stroke(this.colorPatterns[2]);
+    let alpha = this.COLOR_NOISEVALUE * 255;
+    let c = color(this.colorPatterns[2]);
+    c.setAlpha(alpha);
+    stroke(c);
     strokeWeight(2);
     noFill();
     beginShape();
@@ -187,11 +197,17 @@ class ColorfulRing {
 
     for (let i = circleNum - 1; i >= 0; i--) {
       let raduis = i * sapcing;
-      let c = i % 2 === 0 ? this.colorPatterns[3] : this.colorPatterns[2];
+      let alpha = map(i, 0, circleNum - 1, 255, 50);
+      let c =
+        i % 2 === 0
+          ? color(this.colorPatterns[3])
+          : color(this.colorPatterns[2]);
+      c.setAlpha(alpha);
       noStroke();
       fill(c);
       circle(0, 0, raduis);
     }
   }
 }
+
 
