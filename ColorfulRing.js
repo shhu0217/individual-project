@@ -32,6 +32,13 @@ class ColorfulRing {
     this.MIN_RAD = this.size * 0.5; // Minimum variable radius
     this.BORN_XPOS = this.xpos; 
     this.BORN_YPOS = this.ypos; 
+
+    this.COLOR_NOISEVALUE = 0; // Color changing noise value
+    this.COLOR_NOISE_SCALE = 0.0387; // Noise scaling factor for color changes
+    this.COLOR_TIME_SCALE = 0.008; // Time scaling factor for color change
+    this.COLOR_TIME_UNIQUE = random(1000); // Random seed for color change
+    this.COLOR_SEED = random(1000); // Random seed for color change
+    this.COLOR_OFFSET = 0;
   }
 
   // Adding a Noise Effect
@@ -50,6 +57,18 @@ class ColorfulRing {
     var time = this.TIME_SCALE * frameCount + this.R_TIME_UNIQUE;
     this.NOISEVALUE = noise(time, this.RSEED);
     this.size = lerp(this.MIN_RAD, this.MAX_RAD, this.NOISEVALUE);
+   
+    // Calculate the noise value of the color change
+    var ctime = this.COLOR_TIME_SCALE * frameCount + this.COLOR_TIME_UNIQUE;
+    this.COLOR_NOISEVALUE = noise(ctime, this.COLOR_SEED);
+    // Map color noise values ​​to color shift values
+    this.COLOR_OFFSET = map(
+      this.COLOR_NOISEVALUE,
+      0,
+      1,
+      0,
+      this.colorPatterns.length - 1
+    );
   }
 
   // Display visual effects + rotation and zoom
@@ -79,6 +98,7 @@ class ColorfulRing {
     // Draw the background color
     stroke(this.colorPatterns[1]);
     strokeWeight(lineWeight);
+     var colorindex = floor((1 + this.COLOR_OFFSET) % this.colorPatterns.length);
     fill(this.colorPatterns[0]);
     circle(0, 0, s);
 
