@@ -23,7 +23,7 @@
 | Technical Focus | Perlin noise & randomness    | Event-driven changes and size jumps          |
 
 ## Artistic Inspiration
--[Inspiration Source]（https://openprocessing.org/sketch/1795182）
+-Inspiration Source（https://openprocessing.org/sketch/1795182）
 - This piece draws visual inspiration from generative works such as "Crazy Circles", which use mathematical precision and randomness to create intricate, organic spiral patterns. The use of fine line structures, dynamic color transitions, and the illusion of motion influenced my approach to animated, Perlin-driven ring formations in Gradient Bloom.
 
 ## Technical Breakdown
